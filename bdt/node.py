@@ -2,7 +2,7 @@ class Node(object):
 
     def __init__(self,
                  name,
-                 bool_function,
+                 bool_function=None,
                  true_child=None,
                  false_child=None):
         self.name = name

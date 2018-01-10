@@ -24,7 +24,14 @@ def test_bool_func_exec_false():
 def test_bool_func_exec_none():
     node = Node(
         'Test Node',
-        None
     )
 
     assert node.run_function() == True
+
+
+def test_node_leaf():
+    node = Node(
+        'Test Node',
+    )
+
+    assert node.is_leaf() == True
