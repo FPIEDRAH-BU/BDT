@@ -10,6 +10,12 @@ class Node(object):
         self.true_child = true_child
         self.false_child = false_child
 
+    def is_leaf(self):
+        if not (self.true_child and self.false_child):
+            return True
+
+        return False
+
     def run_function(self,
                      **kwargs):
         if not self.function:
