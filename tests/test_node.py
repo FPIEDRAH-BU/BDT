@@ -35,3 +35,22 @@ def test_node_leaf():
     )
 
     assert node.is_leaf() == True
+
+
+def test_node_no_leaf():
+    true_node = Node(
+        'True Node'
+    )
+
+    false_node = Node(
+        'False Node'
+    )
+
+    head_node = Node(
+        'Head Node',
+        lambda x: x < 25,
+        true_child=true_node,
+        false_child=false_node
+    )
+
+    assert head_node.is_leaf() == False

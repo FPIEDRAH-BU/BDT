@@ -2,6 +2,7 @@ import pytest
 
 from bdt.tree import BDT
 from bdt.node import Node
+from bdt.tools import tree_from_dict
 
 
 def test_len_null():
@@ -124,3 +125,122 @@ def test_iterator_error():
     with pytest.raises(UnboundLocalError):
         for node in tree:
             pass
+
+
+def test_json_creation():
+    tree_dict = {
+        'head': 'Head Node',
+
+        'variables': [
+            'withd',
+            'height'
+        ],
+
+        'nodes': [
+            {
+                'name': 'Head Node',
+                'function': 'withd * height < 50',
+                'true_child': 'True Node',
+                'false_child': 'False Node'
+            },
+            {
+                'name': 'True Node',
+                'function': 'withd * height < 25',
+                'true_child': 'True True Node',
+                'false_child': 'True False Node'
+            },
+            {
+                'name': 'False Node',
+                'function': 'withd * height < 100',
+                'true_child': 'False True Node',
+                'false_child': 'False False Node'
+            },
+            {
+                'name': 'True True Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+            {
+                'name': 'True False Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None',
+            },
+            {
+                'name': 'False True Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+            {
+                'name': 'False False Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+        ]
+    }
+
+    tree = tree_from_dict(tree_dict)
+
+    assert len(tree) == len(tree_dict.get('nodes'))
+
+
+def test_json_creation_bad_variables():
+    tree_dict = {
+        'head': 'Head Node',
+
+        'variables': [
+            'W',
+            'H'
+        ],
+
+        'nodes': [
+            {
+                'name': 'Head Node',
+                'function': 'withd * height < 50',
+                'true_child': 'True Node',
+                'false_child': 'False Node'
+            },
+            {
+                'name': 'True Node',
+                'function': 'withd * height < 25',
+                'true_child': 'True True Node',
+                'false_child': 'True False Node'
+            },
+            {
+                'name': 'False Node',
+                'function': 'withd * height < 100',
+                'true_child': 'False True Node',
+                'false_child': 'False False Node'
+            },
+            {
+                'name': 'True True Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+            {
+                'name': 'True False Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None',
+            },
+            {
+                'name': 'False True Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+            {
+                'name': 'False False Node',
+                'function': 'None',
+                'true_child': 'None',
+                'false_child': 'None'
+            },
+        ]
+    }
+
+    with pytest.raises(ValueError):
+        tree = tree_from_dict(tree_dict)
