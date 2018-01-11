@@ -15,5 +15,6 @@ setup(
 
     install_requires=[
         "pytest == 3.3.2",
+        "boolexp == 0.1"
     ],
 )

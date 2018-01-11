@@ -1,0 +1,10 @@
+attrs==17.4.0
+boolean.py==3.5
+boolexp==0.1
+funcsigs==1.0.2
+pluggy==0.6.0
+py==1.5.2
+PyParse==1.1.7
+pyparsing==2.2.0
+pytest==3.3.2
+six==1.11.0
