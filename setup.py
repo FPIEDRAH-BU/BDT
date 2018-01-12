@@ -166,7 +166,7 @@ the boolean functions inside each node.
 
 setup(
     name='BDT',
-    version='0.0.1',
+    version='0.0.1p1',
     author='Franciscp J. Piedrahita',
     author_email='fpiedrah93@gmail.com',
 
