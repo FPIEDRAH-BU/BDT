@@ -1,3 +1,6 @@
+import inspect
+
+
 def count(tree):
     if tree.head == None:
         return 0
@@ -32,7 +35,14 @@ class BDT(object):
         if not node:
             raise StopIteration
 
-        if node.run_function(**self.params):
+        if node.function is None:
+            self.current_node = None
+            return node
+
+        arguments = inspect.getargspec(node.function).args
+        filtered_params = d = {k: v for k, v in self.params.items() if k in arguments}
+
+        if node.run_function(**filtered_params):
             self.current_node = node.true_child
         else:
             self.current_node = node.false_child
