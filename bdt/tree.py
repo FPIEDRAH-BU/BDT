@@ -79,6 +79,7 @@ class PandasBDT(object):
 
     def set_parameters(self,
                        data_frame):
+        self.head.data_frame = data_frame
         self.data_frame = data_frame
 
     def get_leaves(self):
