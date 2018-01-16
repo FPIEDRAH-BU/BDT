@@ -1,7 +1,12 @@
 import pytest
 
+import numpy as np
+import pandas as pd
+
 from bdt.tree import BDT
 from bdt.node import Node
+from bdt.tree import PandasBDT
+from bdt.node import PandasNode
 from bdt.tools import tree_from_dict
 
 
@@ -244,3 +249,71 @@ def test_json_creation_bad_variables():
 
     with pytest.raises(ValueError):
         tree = tree_from_dict(tree_dict)
+
+
+def test_pandas_tree():
+    true_child = PandasNode(
+        'True Node'
+    )
+
+    false_child =  PandasNode(
+        'False Node'
+    )
+
+    head = PandasNode(
+        'Node',
+        lambda df: df['vals'] > 5,
+        pd.DataFrame(
+            np.matrix(
+                range(10)
+            ).T,
+            columns=['vals']
+        ),
+        true_child,
+        false_child
+    )
+
+    tree = PandasBDT(
+        head
+    )
+
+    assert len(tree.get_leaves()) == 2
+
+
+def test_pandas_tree_execution():
+    true_child = PandasNode(
+        'True Node'
+    )
+
+    false_child =  PandasNode(
+        'False Node'
+    )
+
+    head = PandasNode(
+        'Node',
+        lambda df: df['vals'] > 5,
+        pd.DataFrame(
+            np.matrix(
+                range(10)
+            ).T,
+            columns=['vals']
+        ),
+        true_child,
+        false_child
+    )
+
+    tree = PandasBDT(
+        head
+    )
+
+    tree.execute()
+
+    leaves = tree.get_leaves()
+
+    index_true_leave = leaves[0].data_frame.index.tolist()
+    index_false_leave = leaves[-1].data_frame.index.tolist()
+
+    assert (
+        index_true_leave == range(6, 10)
+        and index_false_leave == range(6)
+    ) == True

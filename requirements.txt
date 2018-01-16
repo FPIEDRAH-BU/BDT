@@ -8,3 +8,5 @@ PyParse==1.1.7
 pyparsing==2.2.0
 pytest==3.3.2
 six==1.11.0
+numpy==1.14.0
+pandas==0.22.0
