@@ -161,7 +161,6 @@ The set\_parameters function let you initialize the values needed to run
 the boolean functions inside each node.
 
 .. |alt text| image:: https://upload.wikimedia.org/wikipedia/commons/9/91/BDD.png
-
 """
 
 setup(

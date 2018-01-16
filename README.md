@@ -142,3 +142,54 @@ for node in tree:
 ```
 
 The set_parameters function let you initialize the values needed to run the boolean functions inside each node.
+
+## Pandas
+
+To use pandas you can use the PandasNode and PandasBDT calsses, this can be used only by the object creation, nor JSON nor DICT creation
+are allowed for this class.
+
+```python
+import numpy as np
+import pandas as pd
+
+from bdt.tree import PandasBDT
+from bdt.node import PandasNode
+
+
+true_child = PandasNode(
+    'True Node'
+)
+
+false_child =  PandasNode(
+    'False Node'
+)
+
+head = PandasNode(
+    'Node',
+    lambda df: df['vals'] > 5,
+    pd.DataFrame(
+        np.matrix(
+            range(10)
+        ).T,
+        columns=['vals']
+    ),
+    true_child,
+    false_child
+)
+
+tree = PandasBDT(
+    head
+)
+```
+
+To traverse the tree is different from the standard execution, you'll need to run the execute method instead of iterating over the tree,
+after doing that you can search for the leave nodes and from that get the correspongin frame for each node.
+
+```python
+tree.execute()
+
+leaves = tree.get_leaves()
+
+for node in leaves:
+    print node.data_frame
+```
